@@ -1,5 +1,5 @@
 <?php
-    class Producto extends Conectar{
+    class producto extends Conectar{
         public function get_producto(){
             $conectar= parent::conexion();
             parent::set_names();
@@ -41,6 +41,10 @@
             $sql->bindValue(1,$prod_nom);
             $sql->execute();
             return $resultado=$sql->fetchAll();
+            //$sql1 = "SELECT last_insert_id() AS 'id'; ";
+            //$sql1 = $conectar->prepare($sql1);
+            //$sql1->execute();
+            //return $resultado = $sql1->fetchAll(PDO::FETCH_ASSOC);
         }
 
         public function update_producto($prod_id,$prod_nom){

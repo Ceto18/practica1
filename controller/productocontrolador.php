@@ -1,7 +1,7 @@
 <?php
     require_once('../config/conexion.php');
-    require_once('../models/Producto.php');
-    $productocontrolador = new Producto();
+    require_once('../models/producto.php');
+    $productocontrolador = new producto();
 
     switch($_GET["op"]){
         case "listar":
@@ -22,6 +22,33 @@
                 "aaData" => $data);
             echo json_encode($result);
 
+            break;
+        
+        case "guardaryeditar" :
+            $datos=$productocontrolador->get_producto_x_id($_POST["prod_id"]);
+            if(empty($_POST["prod_id"])){
+                if(is_array($datos)==true and count($datos)==0){
+                    $productocontrolador->insert_producto($_POST['prod_nom']);
+                    //echo "Se Agrego";
+                }
+            }else{
+                $productocontrolador->update_producto($_POST['prod_id'],$_POST['prod_nom']);
+                    //echo "No se Guardo";
+            }
+            break;
+        
+        case "mostrar" :
+            $datos=$productocontrolador->get_producto_x_id($_POST["prod_id"]);
+            if(is_array($datos)==true and count($datos)==0){
+                foreach($datos as $row){
+                    $output["prod_id"] = $row['prod_id'];
+                    $output["prod_nom"] = $row['prod_nom'];
+                }
+            }
+            break;
+        
+        case "eliminar" :
+            $productocontrolador->delete_producto($_POST["prod_id"]);
             break;
     }
 ?>
