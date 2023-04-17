@@ -66,9 +66,9 @@
           <span class="peity-bar" data-peity='{ "fill": ["#9C7846"], "height": 35, "width": 60 }'>3,12,7,9,2,3,4,5,2</span>
         </div><!-- d-flex -->
       </div><!-- info-lst -->
-
       <br>
-    </div><!-- br-sideleft -->
+    </div>
+    <!-- br-sideleft -->
     <!-- ########## END: LEFT PANEL ########## -->
 
     <!-- ########## START: HEAD PANEL ########## -->

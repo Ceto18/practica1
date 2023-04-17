@@ -33,12 +33,14 @@
             return $resultado=$sql->fetchAll();
         }
 
-        public function insert_producto($prod_nom){
+        //se edita si hay nuevo campo
+        public function insert_producto($prod_nom,$prod_desc){
             $conectar= parent::conexion();
             parent::set_names();
-            $sql="INSERT INTO tm_producto (prod_id, prod_nom, fech_crea, fech_mod, fech_elim, est) VALUES (NULL, ?, now(), NULL, NULL, 1)";
+            $sql="INSERT INTO tm_producto (prod_id, prod_nom, prod_desc, fech_crea, fech_mod, fech_elim, est) VALUES (NULL, ?, ?, now(), NULL, NULL, 1)";
             $sql=$conectar->prepare($sql);
             $sql->bindValue(1,$prod_nom);
+            $sql->bindValue(2,$prod_desc);
             $sql->execute();
             return $resultado=$sql->fetchAll();
             //$sql1 = "SELECT last_insert_id() AS 'id'; ";
@@ -47,17 +49,20 @@
             //return $resultado = $sql1->fetchAll(PDO::FETCH_ASSOC);
         }
 
-        public function update_producto($prod_id,$prod_nom){
+        //se edita si hay campo tanto en el public como en el set
+        public function update_producto($prod_id,$prod_nom,$prod_desc){
             $conectar= parent::conexion();
             parent::set_names();
             $sql="UPDATE tm_producto 
                 SET 
                     prod_nom=?,
+                    prod_desc=?,
                     fech_mod=now()
                 WHERE prod_id =?";
             $sql=$conectar->prepare($sql);
             $sql->bindValue(1,$prod_nom);
-            $sql->bindValue(2,$prod_id);
+            $sql->bindValue(2,$prod_desc);
+            $sql->bindValue(3,$prod_id);//va ultimo
             $sql->execute();
             return $resultado=$sql->fetchAll();
         }

@@ -83,8 +83,39 @@ function guardaryeditar(e) {
     });
 }
 
+//se edita si hay nuebo campo
 function editar(prod_id){
-    console.log(prod_id);
+    $('#mdltitulo').html('Editar Registro');
+
+    $.post("../../controller/productocontrolador.php?op=mostrar",{prod_id:prod_id}, function(data){
+        data = JSON.parse(data);
+        $('#prod_id').val(data.prod_id);
+        $('#prod_nom').val(data.prod_nom);
+        $('#prod_desc').val(data.prod_desc);
+    });
+
+    $('#modalmantenimiento').modal('show');
+    //console.log(prod_id);
+}
+
+function ver(prod_id) {
+    $('#mdltitulo').html('Ver Registro');
+
+    $.post("../../controller/productocontrolador.php?op=mostrar",{prod_id:prod_id}, function(data){
+        data = JSON.parse(data);
+        $('#prod_id').val(data.prod_id);
+        $('#prod_nom').val(data.prod_nom);
+        $('#prod_desc').val(data.prod_desc);
+    });
+
+    $('#modalmantenimiento').modal('show');
+    ocultarcampos();
+}
+
+function ocultarcampos(){
+    $('#prod_id').attr("readonly","readonly");
+    $('#prod_nom').attr("readonly","readonly");
+    $('#prod_desc').attr("readonly","readonly");
 }
 
 function eliminar(prod_id){
@@ -117,6 +148,8 @@ function eliminar(prod_id){
 
 $(document).on("click", "#btnnuevo", function(){
     $('#mdltitulo').html('Nuevo registro');
+    $('#producto_form')[0].reset();
+    $('#prod_id').val('');
     $('#modalmantenimiento').modal('show');
 });
 
